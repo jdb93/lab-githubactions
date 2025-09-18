@@ -2,7 +2,7 @@
 set -e
 
 # Imprimo todas las variables de entorno #
-#printenv
+printenv
 
 # Limpio builds anteriores
 rm -rf ./dist
