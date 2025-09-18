@@ -47,7 +47,7 @@ jobs:
         run: npm ci
 
       - name: Build Static Website
-        run: ./.github/scripts/build.sh
+        run: bash ./.github/scripts/build.sh
         shell: bash
         env:
           CI_ENV: ${{ inputs.CI_ENV }}
@@ -56,13 +56,16 @@ jobs:
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
-          aws-access-key-id: ${{secrets.AWS_ACCESS_KEY_ID}}
-          aws-secret-access-key: ${{secrets.AWS_SECRET_ACCESS_KEY}}
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }}
-          aws-region: ${{secrets.AWS_DEFAULT_REGION}}
+          aws-region: ${{ secrets.AWS_DEFAULT_REGION }}
+        
+      - name: Make deploy.sh executable
+        run: chmod +x ./.github/scripts/deploy.sh
 
       - name: S3 Deploy
-        run: ./.github/scripts/deploy.sh
+        run: bash ./.github/scripts/deploy.sh
         shell: bash
         env:
           S3_ORIGIN_BUCKET: ${{ secrets.S3_ORIGIN_BUCKET }}
