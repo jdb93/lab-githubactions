@@ -47,7 +47,7 @@ jobs:
         run: npm ci
 
       - name: Build Static Website
-        run: ./.github/scripts/build.sh
+        run: bash ./.github/scripts/build.sh
         shell: bash
         env:
           CI_ENV: ${{ inputs.CI_ENV }}
